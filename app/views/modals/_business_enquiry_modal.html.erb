@@ -1,0 +1,39 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<div class="modal-title">SEND AN INQUIRY TO BUSINESSS</div>
+	</div>
+	<div class="modal-body">
+		<div class="modal-subheader">
+			<div class="merchantInfo">
+				<div class="title">Gabriel's Restaurant Bar &amp; Grill</div>
+				<address>6501 Mississauga Rd, Mississauga, ON L5N 1A6</address>
+			</div>
+		</div>
+		<div class="sendMessage succes"><strong>Thank you.</strong> Your message was sent successfully.</div>
+		<div class="sendMessage errorOnce">We're sorry, we encountered a problem sending your message. Please try again.</div>
+		<div class="sendMessage errorTwice">We're sorry, we encountered a problem sending your message. Please try again later.</div>
+		<form action="/ajax/email" novalidate="novalidate">
+			<input name="id" type="hidden" value="2280895">
+			<div class="fromSend">
+				<label>From<input tabindex="101" type="text" name="from" placeholder="Your email..."></label>
+			</div>
+			<div class="content">
+				<label>Message
+					<textarea name="contentEmail" tabindex="103" maxlength="5000" placeholder="Your message (min. 20 characters)..."></textarea>
+					<span>Number of characters left: <strong>5000</strong></span>
+				</label>
+			</div>
+			<div class="copyEmail">
+				<label><input name="copyToSender" tabindex="104" type="checkbox" checked="">Send me a copy of this message</label>
+			</div>
+			<div class="btns">
+				<button type="button" class="btn btn-cancel" tabindex="106">CANCEL</button>
+				<button data-analytics-success="{&quot;lk_name&quot;:&quot;email-confirm&quot;,&quot;lk_directory_heading&quot;:[{&quot;092963&quot;:[{&quot;01125710&quot;:&quot;1&quot;}]}],&quot;lk_area&quot;:&quot;in_overlay&quot;,&quot;lk_se_id&quot;:&quot;e40106bb-bf85-48ef-98cc-3a1a21ef5953_R2FicmllbCdzIFJlc3RhdXJhbnQgQmFyICYgR3JpbGw_TWlzc2lzc2F1Z2EgT04_1&quot;,&quot;lk_pos&quot;:&quot;emailbusiness&quot;,&quot;lk_listing_id&quot;:&quot;2280895&quot;,&quot;lk_product&quot;:&quot;SP&quot;}" data-analytics-error="{&quot;lk_name&quot;:&quot;email-problem&quot;,&quot;lk_directory_heading&quot;:[{&quot;092963&quot;:[{&quot;01125710&quot;:&quot;1&quot;}]}],&quot;lk_area&quot;:&quot;in_overlay&quot;,&quot;lk_se_id&quot;:&quot;e40106bb-bf85-48ef-98cc-3a1a21ef5953_R2FicmllbCdzIFJlc3RhdXJhbnQgQmFyICYgR3JpbGw_TWlzc2lzc2F1Z2EgT04_1&quot;,&quot;lk_pos&quot;:&quot;emailbusiness&quot;,&quot;lk_listing_id&quot;:&quot;2280895&quot;,&quot;lk_product&quot;:&quot;SP&quot;}" tabindex="105" type="submit" class="btn btn-send">SEND</button>
+			</div>
+		</form>
+		<div class="btns">
+			<button type="button" class="btn btn-close">CLOSE</button>
+		</div>
+	</div>
+</div>
