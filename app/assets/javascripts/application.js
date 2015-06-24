@@ -18,3 +18,15 @@
 function openBusinessEnquiryModal(){
 	$('#businessEnquiryModal').modal({keyboard: false});
 }
+
+function sendMail(){
+	$('#businessEnquiryModal').modal('hide');
+	$('#spinner_div').show();
+	$.ajax({
+		type: "GET",
+		url: "/send_mail",
+		datatype: "script",
+		data: "",
+		complete: function() { $('#spinner_div').hide(); }
+	});
+}
