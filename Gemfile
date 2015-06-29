@@ -25,6 +25,12 @@ gem "gmail"
 gem 'whenever'
 gem "devise"
 
+gem "roo"
+gem "paperclip", "~> 4.1"
+gem 'axlsx'
+gem 'zip-zip'
+gem 'rubyzip', '>= 1.0.0', :require => 'zip/zip'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

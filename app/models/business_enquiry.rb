@@ -11,15 +11,17 @@ class BusinessEnquiry < ActiveRecord::Base
 			if link.present?
 				unique_identifier = rand.to_s[2..10].to_i     #this will generate a 9 digit random unique number
 				business_name = page.search("h1.merchantInfo-title").first.children.first.children.first.text
-				business_address = page.search("address.merchant-address").first.children.each{|x| str = str + " " + x.children.first if !x.children.first.nil?}
+				page.search("address.merchant-address").first.children.each{|x| str = str + " " + x.children.first if !x.children.first.nil?}
+				business_address = str
+				email_xpath = page.parser.xpath("//div[@class='merchantHead']/div[2]/ul/li[4]/a")
 				BusinessEnquiry.create(unique_id: unique_identifier, business_name: business_name, business_address: business_address)
 			end
 		# end
 	end
 
-	def self.fetch_email(date)
+	def self.fetch_email(date, user_name, user_password)
 		date = Date.parse(date) if date.is_a?(String)
-		gmail = Gmail.connect!(Constants::EMAIL_USERNAME, Constants::EMAIL_PASSWORD)
+		gmail = Gmail.connect!(user_name, user_password)
 		emails = gmail.inbox.find(:unread, on: date, from: Constants::FROM_EMAIL)
 		emails.each do |email|
 			message = email.message
