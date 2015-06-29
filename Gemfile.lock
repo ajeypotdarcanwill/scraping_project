@@ -85,7 +85,6 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
-    email_reply_parser (0.5.8)
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
@@ -229,11 +228,9 @@ DEPENDENCIES
   cucumber
   cucumber-rails
   devise
-  email_reply_parser
   gmail
   jbuilder (~> 2.0)
   jquery-rails
-  mail
   mechanize
   mysql2
   nokogiri

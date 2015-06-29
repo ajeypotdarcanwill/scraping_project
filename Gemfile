@@ -24,8 +24,6 @@ gem "capybara-mechanize"
 gem "gmail"
 gem 'whenever'
 gem "devise"
-gem "email_reply_parser"   #for parsing the email body.
-gem "mail"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
