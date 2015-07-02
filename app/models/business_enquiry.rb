@@ -34,4 +34,16 @@ class BusinessEnquiry < ActiveRecord::Base
 			end
 		end
 	end
+
+	def self.download_enquiry_data
+		p = Axlsx::Package.new
+		wb = p.workbook
+		wb.styles do |s|
+			first_cell = s.add_style(:b => true,:font_name => "Calibri")
+			wb.add_worksheet(:name => "Enquiry Sheet") do |sheet|
+				sheet.add_row ["", "", "", ""]
+			end
+		end
+		p.serialize("#{Rails.root}/public/enquiry_sheet.xls")
+	end
 end
