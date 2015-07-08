@@ -26,7 +26,7 @@ namespace :business_email_inquiry do
 		puts ""
 		t1 = Time.now
 
-		BusinessEnquiry.fetch_email(args[0], args[1], args[3])
+		BusinessEnquiry.fetch_email(args[:date], args[:user_name], args[:password])
 
 		t2 = Time.now
 		puts ""

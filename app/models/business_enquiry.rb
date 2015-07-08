@@ -68,7 +68,7 @@ class BusinessEnquiry < ActiveRecord::Base
 	# +user_name+:: email address for which the email has to be retrived.
 	# +user_password+:: password of the email address.
 	#
-	# +result+:: email will be fetched and 'to address' will be saved in the database if the identifer in the mail body matches with the database.
+	# +result+:: email will be fetched and 'to address' will be saved in the database if the identifier in the mail body matches with the database.
 
 	def self.fetch_email(date, user_name, user_password)
 		date = Date.parse(date) if date.is_a?(String)
@@ -90,16 +90,18 @@ class BusinessEnquiry < ActiveRecord::Base
 				message = email.message
 
 				#fetching the 'to email address'
-				business_email_address = message.to.first
+				business_email_address = message.to_addrs.first
 
 				#fetching the email body & finding out the unique identifier.
-				email_body = message.text_part.body.raw_source
-				identifier = email_body.scan(/\d+/).map(&:to_i).first
+				identifier = message.html_part.body.raw_source.scan(/\d+/).map(&:to_i)
 
-				#checking the unique identifer with the database value.
-				check_identifier = BusinessEnquiry.where(unique_id: identifier)
-				if check_identifier.present?
-					BusinessEnquiry.update_attributes(email_address: business_email_address, has_email_address: true)
+				#checking the unique identifier with the database value.
+				identifier.each do |iden|
+					business_enquiry = BusinessEnquiry.where(unique_id: iden)
+					if business_enquiry.present?
+						business_enquiry.first.update_attributes(email_address: business_email_address, has_email_address: true)
+						break
+					end
 				end
 				Rails.logger.info "-------- Email address of Business Owner fetched successfully ---------"
 			end
