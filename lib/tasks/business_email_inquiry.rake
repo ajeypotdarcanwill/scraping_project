@@ -8,16 +8,43 @@ namespace :business_email_inquiry do
 
 	desc "Send automated emails business enquiry email."
 	task :send_inquiry => :environment do
+		puts "------ Starting the rake task -------"
+		puts ""
+		t1 = Time.now
+
 		BusinessEnquiry.send_business_enquiry
+
+		t2 = Time.now
+		puts ""
+		puts "------ Finished the task ---------"
+		puts "------ Total time taken to run the task: #{t2-t1} seconds -------"
 	end
 
 	desc "Fetch the auto-response from the mails."
 	task :fetch_mails,[:date, :user_name, :password] => :environment do |t, args|
+		puts "------ Starting the rake task -------"
+		puts ""
+		t1 = Time.now
+
 		BusinessEnquiry.fetch_email(args[0], args[1], args[3])
+
+		t2 = Time.now
+		puts ""
+		puts "------ Finished the task ---------"
+		puts "------ Total time taken to run the task: #{t2-t1} seconds -------"
 	end
 
 	desc "Downloading the data."
 	task :download_data => :environment do
+		puts "------ Starting the rake task -------"
+		puts ""
+		t1 = Time.now
+
 		BusinessEnquiry.download_enquiry_data
+
+		t2 = Time.now
+		puts ""
+		puts "------ Finished the task ---------"
+		puts "------ Total time taken to run the task: #{t2-t1} seconds -------"
 	end
 end
