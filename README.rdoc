@@ -21,10 +21,12 @@ Steps to test the application from rails console:
 * rails c
 * For sending business enquiry - BusinessEnquiry.send_business_enquiry
 * For fetching the emails - BusinessEnquiry.fetch_email(date, user_name, user_password) where user_name & user_password will be for the email address using which the enquiry was send.
+* To download the data - BusinessEnquiry.download_enquiry_data
 
 Steps to test the application using rake task:
 
 * rake business_email_inquiry:send_inquiry
 * rake business_email_inquiry:fetch_mails[date,user_name,password]
+* rake business_email_inquiry:download_data
 
 If you have any questions, then you can mail me at janmejay.rai31@gmail.com

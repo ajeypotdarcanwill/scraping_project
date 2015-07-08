@@ -15,4 +15,9 @@ namespace :business_email_inquiry do
 	task :fetch_mails,[:date, :user_name, :password] => :environment do |t, args|
 		BusinessEnquiry.fetch_email(args[0], args[1], args[3])
 	end
+
+	desc "Downloading the data."
+	task :download_data => :environment do
+		BusinessEnquiry.download_enquiry_data
+	end
 end
