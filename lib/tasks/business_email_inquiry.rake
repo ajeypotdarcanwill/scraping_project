@@ -1,3 +1,9 @@
+# BusinessEmailEnquiry Rake Task:: Rake task to send business enquiry mails & fetching the auto-response.
+# 
+# Author::    Janmejay Rai (mailto: janmejay.rai31@gmail.com)
+# Copyright:: Subco Devs
+# License::   Without a license, the code is copyrighted by default. People can read the code, but they have no legal right to use it. To use the code, you must contact the author directly and ask permission.
+
 namespace :business_email_inquiry do
 
 	desc "Send automated emails business enquiry email."

@@ -16,14 +16,11 @@ gem 'thin'
 gem "twitter-bootstrap-rails"
 gem "mechanize"
 gem "nokogiri"
-gem 'cucumber-rails', :require => false
-gem 'capybara'
-gem 'xpath'
-gem 'cucumber'
-gem "capybara-mechanize"
 gem "gmail"
 gem 'whenever'
 gem "devise"
+gem "rest-client"
+gem "capybara-mechanize"
 
 gem "roo"
 gem "paperclip", "~> 4.1"

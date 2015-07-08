@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626141234) do
+ActiveRecord::Schema.define(version: 20150708100732) do
 
   create_table "business_enquiries", force: :cascade do |t|
-    t.string   "email_address",       limit: 255
-    t.string   "business_owner_name", limit: 255
-    t.string   "business_name",       limit: 255
-    t.string   "business_address",    limit: 255
-    t.string   "unique_id",           limit: 255
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.string   "email_address",     limit: 255
+    t.string   "business_name",     limit: 255
+    t.string   "business_address",  limit: 255
+    t.string   "unique_id",         limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.boolean  "has_email_address", limit: 1,   default: false
   end
 
   create_table "business_urls", force: :cascade do |t|
