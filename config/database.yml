@@ -50,5 +50,3 @@ test:
 production:
   <<: *default
   database: scraping_project_production
-  username: rails
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
