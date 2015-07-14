@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
 	def index
+	  @business_enquiries = BusinessEnquiry.all
 	end
 
 	def send_mail
@@ -15,4 +16,9 @@ class HomeController < ApplicationController
 		end
 		redirect_to '/', notice: "Mail send"
 	end
+	
+  # def business_enquiries
+  #  @business_enquiries = BusinessEnquiry.all
+  # end
+	
 end

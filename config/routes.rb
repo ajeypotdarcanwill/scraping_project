@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'send_mail' => "home#send_mail", as: :send_mail
+  
+  # get 'business_enquiries' => "home#business_enquiries", as: :business_enquiries
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

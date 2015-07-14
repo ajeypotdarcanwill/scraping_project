@@ -4,10 +4,10 @@
 # Copyright:: Subco Devs
 # License::   Without a license, the code is copyrighted by default. People can read the code, but they have no legal right to use it. To use the code, you must contact the author directly and ask permission.
 
-namespace :business_email_inquiry do
+namespace :business_email_enquiry do
 
 	desc "Send automated emails business enquiry email."
-	task :send_inquiry => :environment do
+	task :send_enquiry => :environment do
 		puts "------ Starting the rake task -------"
 		puts ""
 		t1 = Time.now

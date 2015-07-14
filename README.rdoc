@@ -25,8 +25,8 @@ Steps to test the application from rails console:
 
 Steps to test the application using rake task:
 
-* rake business_email_inquiry:send_inquiry
-* rake business_email_inquiry:fetch_mails[date,user_name,password]
-* rake business_email_inquiry:download_data
+* rake business_email_enquiry:send_enquiry
+* rake business_email_enquiry:fetch_mails[date,user_name,password]
+* rake business_email_enquiry:download_data
 
 If you have any questions, then you can mail me at janmejay.rai31@gmail.com
