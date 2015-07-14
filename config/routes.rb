@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
 
-  get 'send_mail' => "home#send_mail", as: :send_mail
+  post 'send_mail' => "home#send_mail", as: :send_mail
   
   # get 'business_enquiries' => "home#business_enquiries", as: :business_enquiries
 

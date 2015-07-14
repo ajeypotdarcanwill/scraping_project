@@ -5,20 +5,14 @@ class HomeController < ApplicationController
 	end
 
 	def send_mail
-		email = ""
-		message = ""
-		begin
-			Thread.new do
-				UserMailer.send_business_enquiry(email, message).deliver_now!
-			end
-		rescue Exception => e
-			puts e.message
-		end
-		redirect_to '/', notice: "Mail send"
+	  status = BusinessEnquiry.send_enquiry(params[:business_url])
+	  logger.info "~~~~~~~~~~~~~~#{status}~~~~~~~~~~~~~~~~"
+	  if status == "success"
+	   BusinessUrl.create(url: params[:business_url])
+	   redirect_to '/', notice: "Business enquiry sent."
+	  else
+	    redirect_to '/', alert: "Could not find Email link. Not able to send the enquiry."
+    end
 	end
-	
-  # def business_enquiries
-  #  @business_enquiries = BusinessEnquiry.all
-  # end
 	
 end

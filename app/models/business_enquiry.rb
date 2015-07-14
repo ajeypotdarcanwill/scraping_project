@@ -11,53 +11,59 @@ class BusinessEnquiry < ActiveRecord::Base
 	# +result+:: an email will be send to the business owner if the email link is present on the url which is being hit.
 
 	def self.send_business_enquiry
-		agent = Mechanize.new
 		BusinessUrl.all.each do |business_url|
-			Rails.logger.info "------ Visiting the url: #{business_url.url} ------"
-			agent.get(business_url.url)
-			page = agent.page
+			send_enquiry(business_url.url)
+		end
+	end
+	
+	def self.send_enquiry(business_url)
+	  agent = Mechanize.new
+	  Rails.logger.info "------ Visiting the url: #{business_url} ------"
+		agent.get(business_url)
+		page = agent.page
+		Rails.logger.info ""
+		Rails.logger.info "------ Fetched the required page ------"
+		Rails.logger.info ""
+		str = ""
+		link = page.link_with(text: "Email")
+		form_url = "http://www.yellowpages.ca/ajax/email"
+		if link.present?
+
+			#this will generate a 9 digit random unique number
+			unique_identifier = rand.to_s[2..10].to_i
+
+			#finding the business name.
+			business_name = page.search("h1.merchantInfo-title").first.children.first.children.first.text
+
+			#finding the address of the business owner.
+			page.search("address.merchant-address").first.children.each{|x| str = str + " " + x.children.first if !x.children.first.nil?}
+			business_address = str
+
+			email_xpath = page.parser.xpath("//div[@class='merchantHead']/div[2]/ul/li[4]/a")
+
+			#finding the id of the business from the url.
+			business_id = business_url.split('/').last.split('.').first.to_s
+
+			#params for the form.
+			from_email = "michaelstarc1984@gmail.com"
+			body_content = "I want to know the store timings (" + "#{unique_identifier}" + ")"
+			params = { id: business_id, from: from_email, contentEmail: body_content, copyToSender: 'on' }    # params required on the form.
+
+			Rails.logger.info "------- Sending the business enquiry mail ------"
 			Rails.logger.info ""
-			Rails.logger.info "------ Fetched the required page ------"
+
+			#sending business enquiry mail using rest-client gem and passing the url & params as arguments.
+			RestClient.post(form_url, params)
+
+			#creating a database entry for BusinessEnquiry.
+			BusinessEnquiry.create(unique_id: unique_identifier, business_name: business_name, business_address: business_address)
+			Rails.logger.info "-------- Business Enquiry email sent successfully. -------"
 			Rails.logger.info ""
-			str = ""
-			link = page.link_with(text: "Email")
-			form_url = "http://www.yellowpages.ca/ajax/email"
-			if link.present?
-
-				#this will generate a 9 digit random unique number
-				unique_identifier = rand.to_s[2..10].to_i
-
-				#finding the business name.
-				business_name = page.search("h1.merchantInfo-title").first.children.first.children.first.text
-
-				#finding the address of the business owner.
-				page.search("address.merchant-address").first.children.each{|x| str = str + " " + x.children.first if !x.children.first.nil?}
-				business_address = str
-
-				email_xpath = page.parser.xpath("//div[@class='merchantHead']/div[2]/ul/li[4]/a")
-
-				#finding the id of the business from the url.
-				business_id = business_url.url.split('/').last.split('.').first.to_s
-
-				#params for the form.
-				from_email = "michaelstarc1984@gmail.com"
-				body_content = "I want to know the store timings (" + "#{unique_identifier}" + ")"
-				params = { id: business_id, from: from_email, contentEmail: body_content, copyToSender: 'on' }    # params required on the form.
-
-				Rails.logger.info "------- Sending the business enquiry mail ------"
-				Rails.logger.info ""
-
-				#sending business enquiry mail using rest-client gem and passing the url & params as arguments.
-				RestClient.post(form_url, params)
-
-				#creating a database entry for BusinessEnquiry.
-				BusinessEnquiry.create(unique_id: unique_identifier, business_name: business_name, business_address: business_address)
-				Rails.logger.info "-------- Business Enquiry email sent successfully. -------"
-				Rails.logger.info ""
-			else
-				Rails.logger.info "------- Could not find Email link. Not able to send the enquiry mail."
-				Rails.logger.info ""
-			end
+			return "success"
+		else
+			Rails.logger.info "------- Could not find Email link. Not able to send the enquiry mail."
+			Rails.logger.info ""
+			return "Fail"
 		end
 	end
 
@@ -103,6 +109,10 @@ class BusinessEnquiry < ActiveRecord::Base
 						break
 					end
 				end
+				
+				# mark this email as read.
+				email.read!
+				
 				Rails.logger.info "-------- Email address of Business Owner fetched successfully ---------"
 			end
 		else

@@ -10,14 +10,12 @@
     <th>Email</th>
     <th>Business name</th>
     <th>Business address</th>
-    <th>Business url</th>
   </tr>
   <% @business_enquiries.each do |enq| %>
   <tr>
     <td><%= enq.email_address %></td>
     <td><%= enq.business_name %></td>
     <td><%= enq.business_address %></td>
-    <td></td>
   </tr>
   <% end %>
 </table>

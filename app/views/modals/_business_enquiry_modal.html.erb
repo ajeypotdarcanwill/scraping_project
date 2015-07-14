@@ -8,17 +8,23 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">SEND AN ENQUIRY TO BUSINESSS</h4>
 			</div>
+        
 			<div class="modal-body">
-				Messsage to business
+			  <%= form_tag("/send_mail") do %>
+				<div class="field">
+				  <%= label_tag(:business_url, "Business url") %>
+          <%= url_field_tag "business_url", nil, autofocus: true, required: true, :class => "form-control" %>
+        </div>
 			</div>
-			<div>
+			<!--div>
 				<label><input name="copyToSender" type="checkbox" checked="">Send me a copy of this message</label>
-			</div>
+			</div-->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-close" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-info" onclick="sendMail();">Send Mail</button>
+				<%= submit_tag("Send", :class => "btn btn-info") %>
 			</div>
 		</div>
+		<% end %>
 		<!-- Modal content ends-->
 
 	</div>
