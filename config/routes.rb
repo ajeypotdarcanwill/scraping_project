@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   
   get 'fetch_emails' => "home#fetch_emails", as: :fetch_emails
   
+  get 'download_data' => "home#download_data", as: :download_data
+  
   # get 'business_enquiries' => "home#business_enquiries", as: :business_enquiries
 
   # Example of regular route:

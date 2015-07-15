@@ -138,6 +138,7 @@ class BusinessEnquiry < ActiveRecord::Base
 				end
 			end
 		end
-		p.serialize("#{Rails.root}/public/enquiry_sheet.xlsx")
+    # p.serialize("#{Rails.root}/public/enquiry_sheet.xlsx")
+    return p.to_stream.read
 	end
 end

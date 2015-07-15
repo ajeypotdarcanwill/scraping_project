@@ -6,4 +6,6 @@
 
 class Constants
 	FROM_EMAIL = "no-reply@yellowpages.ca"
+	GMAIL_USER = "michaelstarc1984@gmail.com"
+	GMAIL_PASSWORD = "michael@12345"
 end

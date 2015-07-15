@@ -6,7 +6,6 @@ class HomeController < ApplicationController
 
 	def send_mail
 	  status = BusinessEnquiry.send_enquiry(params[:business_url])
-	  logger.info "~~~~~~~~~~~~~~#{status}~~~~~~~~~~~~~~~~"
 	  if status == "success"
 	   BusinessUrl.create(url: params[:business_url])
 	   redirect_to '/', notice: "Business enquiry sent."
@@ -18,6 +17,11 @@ class HomeController < ApplicationController
 	def fetch_emails
 	 BusinessEnquiry.fetch_email("michaelstarc1984@gmail.com", "michael@12345")
 	 redirect_to '/', notice: "Emails fetched."
+	end
+	
+	def download_data
+	 file = BusinessEnquiry.download_enquiry_data
+   send_data file, :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet", filename: "business_enquiries_#{Date.today}.xlsx"
 	end
 	
 end
