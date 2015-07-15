@@ -1,5 +1,7 @@
 <button type="button" class="btn btn-default btn-info" id="editPostBtn" onClick="openBusinessEnquiryModal();">Send Business Enquiry</button>
 
+<%= link_to "Fetch business emails", fetch_emails_path, :class => "btn btn-default btn-warning", :"data-trigger" => "hover", :"data-content" => "This will fetch the emails for those businesses where emails are not present (marked in blue below).", :rel => "popover" %>
+
 <%= render partial: "modals/business_enquiry_modal" %>
 
 <br/><br/>
@@ -12,7 +14,7 @@
     <th>Business address</th>
   </tr>
   <% @business_enquiries.each do |enq| %>
-  <tr>
+  <tr class="<%= ("info" unless enq.has_email_address) %>">
     <td><%= enq.email_address %></td>
     <td><%= enq.business_name %></td>
     <td><%= enq.business_address %></td>

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   post 'send_mail' => "home#send_mail", as: :send_mail
   
+  get 'fetch_emails' => "home#fetch_emails", as: :fetch_emails
+  
   # get 'business_enquiries' => "home#business_enquiries", as: :business_enquiries
 
   # Example of regular route:

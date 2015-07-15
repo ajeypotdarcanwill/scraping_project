@@ -11,8 +11,13 @@ class HomeController < ApplicationController
 	   BusinessUrl.create(url: params[:business_url])
 	   redirect_to '/', notice: "Business enquiry sent."
 	  else
-	    redirect_to '/', alert: "Could not find Email link. Not able to send the enquiry."
+	    redirect_to '/', alert: "Could not find Email link on this webpage. Enquiry sending failed."
     end
+	end
+	
+	def fetch_emails
+	 BusinessEnquiry.fetch_email("michaelstarc1984@gmail.com", "michael@12345")
+	 redirect_to '/', notice: "Emails fetched."
 	end
 	
 end

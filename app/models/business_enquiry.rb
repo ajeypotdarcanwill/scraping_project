@@ -5,6 +5,8 @@
 # License::   Without a license, the code is copyrighted by default. People can read the code, but they have no legal right to use it. To use the code, you must contact the author directly and ask permission.
 
 class BusinessEnquiry < ActiveRecord::Base
+  
+  default_scope { order(created_at: :desc) }
 
 	# Method to send the business enquiry using the url's provided.
 	# 
@@ -46,7 +48,7 @@ class BusinessEnquiry < ActiveRecord::Base
 
 			#params for the form.
 			from_email = "michaelstarc1984@gmail.com"
-			body_content = "I want to know the store timings (" + "#{unique_identifier}" + ")"
+			body_content = "I would like to know the timings please. (" + "#{unique_identifier}" + ")"
 			params = { id: business_id, from: from_email, contentEmail: body_content, copyToSender: 'on' }    # params required on the form.
 
 			Rails.logger.info "------- Sending the business enquiry mail ------"
@@ -76,8 +78,8 @@ class BusinessEnquiry < ActiveRecord::Base
 	#
 	# +result+:: email will be fetched and 'to address' will be saved in the database if the identifier in the mail body matches with the database.
 
-	def self.fetch_email(date, user_name, user_password)
-		date = Date.parse(date) if date.is_a?(String)
+	def self.fetch_email(user_name, user_password)
+    # date = Date.parse(date) if date.is_a?(String)
 
 		Rails.logger.info "------ Connecting to Gmail using the specified credentials --------"
 		Rails.logger.info ""
@@ -85,7 +87,7 @@ class BusinessEnquiry < ActiveRecord::Base
 
 		Rails.logger.info "------ Gmail connected. Now reading the emails for the specified date --------"
 		Rails.logger.info ""
-		emails = gmail.inbox.find(:unread, on: date, from: Constants::FROM_EMAIL)
+		emails = gmail.inbox.find(:unread, from: Constants::FROM_EMAIL)
 
 		if emails.present?
 			emails.each do |email|
