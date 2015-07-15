@@ -3,7 +3,8 @@ class HomeController < ApplicationController
 	def index
 	  @business_enquiries = BusinessEnquiry.all
 	end
-
+	
+  # Sends business enquiry to provided url.
 	def send_mail
 	  status = BusinessEnquiry.send_enquiry(params[:business_url])
 	  if status == "success"
@@ -14,11 +15,13 @@ class HomeController < ApplicationController
     end
 	end
 	
+	# Fetch emails from gmail received emails.
 	def fetch_emails
 	 BusinessEnquiry.fetch_email("michaelstarc1984@gmail.com", "michael@12345")
 	 redirect_to '/', notice: "Emails fetched."
 	end
 	
+	# Downloads business enquiry data in MS Excel file, only the records where emails ids are present.
 	def download_data
 	 file = BusinessEnquiry.download_enquiry_data
    send_data file, :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet", filename: "business_enquiries_#{Date.today}.xlsx"

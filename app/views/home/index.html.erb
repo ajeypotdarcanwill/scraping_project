@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-default btn-info" id="editPostBtn" onClick="openBusinessEnquiryModal();">Send Business Enquiry</button>
+<%= link_to "Send Business Enquiry", "#", :class => "btn btn-default btn-info", :id => "editPostBtn", :onClick => "openBusinessEnquiryModal();" %>
 
 <%= link_to "Fetch Business Emails", fetch_emails_path, :id => "link_to_fetch", :class => "btn btn-default btn-warning", :"data-trigger" => "hover", :"data-content" => "This will fetch the emails for those businesses where emails are not present (marked in blue below).", :rel => "popover", :onClick => 'javascript:$("#link_to_fetch").hide();$("#fetching").show();' %>
 
