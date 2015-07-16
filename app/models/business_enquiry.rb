@@ -141,4 +141,16 @@ class BusinessEnquiry < ActiveRecord::Base
     # p.serialize("#{Rails.root}/public/enquiry_sheet.xlsx")
     return p.to_stream.read
 	end
+	
+	# Method to import urls from csv file
+	def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+	    BusinessUrl.create! row.to_hash
+    end
+	end
 end
+
+
+
+
+

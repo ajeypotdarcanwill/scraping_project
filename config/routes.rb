@@ -15,6 +15,12 @@ Rails.application.routes.draw do
   
   get 'download_data' => "home#download_data", as: :download_data
   
+  post 'import_data' => "home#import_data", as: :import_data
+  
+  get 'business_urls' => "home#business_urls", as: :business_urls
+  
+  get 'send_enquiries' => "home#send_enquiries", as: :send_enquiries
+  
   # get 'business_enquiries' => "home#business_enquiries", as: :business_enquiries
 
   # Example of regular route:

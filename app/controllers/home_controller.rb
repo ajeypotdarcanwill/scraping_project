@@ -15,7 +15,12 @@ class HomeController < ApplicationController
     end
 	end
 	
-	# Fetch emails from gmail received emails.
+	def send_enquiries
+	 BusinessEnquiry.send_business_enquiry
+	 redirect_to root_url, notice: "Business enquiries sent to the urls where email address was present."
+	end
+	
+	# Fetch to-emails from gmail received emails from yp.com
 	def fetch_emails
 	 BusinessEnquiry.fetch_email("michaelstarc1984@gmail.com", "michael@12345")
 	 redirect_to '/', notice: "Emails fetched."
@@ -25,6 +30,15 @@ class HomeController < ApplicationController
 	def download_data
 	 file = BusinessEnquiry.download_enquiry_data
    send_data file, :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet", filename: "business_enquiries_#{Date.today}.xlsx"
+	end
+	
+	def import_data
+	 BusinessEnquiry.import(params[:file])
+	 redirect_to business_urls_path, notice: "Business urls imported."
+	end
+	
+	def business_urls
+	 @urls = BusinessUrl.all
 	end
 	
 end

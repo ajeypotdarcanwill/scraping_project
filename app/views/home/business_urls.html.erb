@@ -1,0 +1,26 @@
+<%= link_to "Send Business Enquiries", send_enquiries_path, :id => "link_to_send", :class => "btn btn-default btn-warning pull-right", :"data-trigger" => "hover", :"data-placement" => "left", :"data-content" => "Sends enquiries to all the urls from the below table.", :rel => "popover", :onClick => 'javascript:$("#link_to_send").hide();$("#sending").show();' %>
+
+<%= link_to "Sending...", "#", :id => "sending", :class => "btn btn-default btn-warning pull-right", :disabled => "disabled", :style => "display:none;" %>
+<h4>Import Business Urls</h4>
+
+<%= form_tag import_data_path, multipart: true do %>
+  <div class="row">
+    <%= file_field_tag :file, required: true, :class => "col-md-3", :style => "padding-top:7px;" %>
+    <%= submit_tag "import", :class => "btn btn-default btn-warning" %>
+  </div>
+<% end -%>
+
+<br/><br/>
+
+<table class="table table-hover">
+  <tr>
+    <th>URL</th>
+    <!--th>Business name</th>
+    <th>Business address</th-->
+  </tr>
+  <% @urls.each do |url| %>
+  <tr>
+    <td><%= link_to url.url, url.url, target: "_blank" %></td>
+  </tr>
+  <% end %>
+</table>
