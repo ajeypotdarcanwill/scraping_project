@@ -1,11 +1,15 @@
-<%= link_to "Send Business Enquiries", send_enquiries_path, :id => "link_to_send", :class => "btn btn-default btn-warning pull-right", :"data-trigger" => "hover", :"data-placement" => "left", :"data-content" => "Sends enquiries to all the urls from the below table. The enquiries will be sent in batch of 20 urls in one go.", :rel => "popover", :onClick => 'javascript:$("#link_to_send").hide();$("#sending").show();' %>
+<% if @unsent_urls.count > 0 %>
+  <%= link_to "Send Business Enquiries", send_enquiries_path, :id => "link_to_send", :class => "btn btn-default btn-warning pull-right", :"data-trigger" => "hover", :"data-placement" => "left", :"data-content" => "Sends enquiries to all the urls from the below table. The enquiries will be sent in batch of 20 urls in one go.", :rel => "popover", :onClick => 'javascript:$("#link_to_send").hide();$("#sending").show();' %>
+<% else %>
+  <%= link_to "No URLs", "#", :class => "btn btn-default btn-warning pull-right", :"data-trigger" => "hover", :"data-placement" => "left", :"data-content" => "Currently there are no unsent urls in the system to send the enquiries. Import urls first.", :rel => "popover" %>
+<% end %>
 
 <%= link_to "Sending...", "#", :id => "sending", :class => "btn btn-default btn-warning pull-right", :disabled => "disabled", :style => "display:none;" %>
-<h4>Import Business Urls</h4>
 
+<h4>Import Business Urls</h4>
 <%= form_tag import_data_path, multipart: true do %>
   <div class="row">
-    <%= file_field_tag :file, required: true, :class => "col-md-2", :style => "padding-top:7px;" %>
+    <%= file_field_tag :file, required: true, :class => "col-md-3", :style => "padding-top:7px;" %>
     <%= submit_tag "import", :class => "btn btn-default btn-info" %>
   </div>
 <% end -%>
@@ -13,11 +17,11 @@
 <br/><br/>
 
 <div>
-
+  
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#to_be_sent" aria-controls="to_be_sent" role="tab" data-toggle="tab">Enquiries to be sent <%= "(#{@unsent_urls.count})" %></a></li>
-    <li role="presentation"><a href="#sent" aria-controls="sent" role="tab" data-toggle="tab">Enquiries sent <%= "(#{@sent_urls.count})" %></a></li>
+    <li role="presentation" class="active"><a href="#to_be_sent" aria-controls="to_be_sent" role="tab" data-toggle="tab">Enquiries to be sent <span class="badge"><%= @unsent_urls.count %></span></a></li>
+    <li role="presentation"><a href="#sent" aria-controls="sent" role="tab" data-toggle="tab">Enquiries sent <span class="badge"><%= @sent_urls.count %></span></a></li>
   </ul>
 
   <!-- Tab panes -->
