@@ -17,8 +17,8 @@ class HomeController < ApplicationController
 	
 	# to send multiple business enquiries, sends enquiries to all urls where enquiry_sent is false.
 	def send_enquiries
-	 BusinessEnquiry.send_business_enquiry
-	 redirect_to root_url, notice: "Business enquiries sent to the urls where email address was present."
+    BusinessEnquiry.send_business_enquiry
+	  redirect_to business_urls_path, notice: "Business enquiries sent to the urls where email address was present."
 	end
 	
 	# Fetch to-emails from gmail received emails from yp.com
