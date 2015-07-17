@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 	def send_mail
 	  status = BusinessEnquiry.send_enquiry(params[:business_url])
 	  if status == "success"
-	   BusinessUrl.create(url: params[:business_url])
+	   BusinessUrl.create(url: params[:business_url], enquiry_sent: true)
 	   redirect_to '/', notice: "Business enquiry sent."
 	  else
 	    redirect_to '/', alert: "Could not find Email link on this webpage. Enquiry sending failed."
@@ -38,7 +38,8 @@ class HomeController < ApplicationController
 	end
 	
 	def business_urls
-	 @urls = BusinessUrl.all
+	 @unsent_urls = BusinessUrl.where(enquiry_sent: false)
+	 @sent_urls = BusinessUrl.where(enquiry_sent: true)
 	end
 	
 end

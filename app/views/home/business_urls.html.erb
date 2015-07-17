@@ -5,22 +5,47 @@
 
 <%= form_tag import_data_path, multipart: true do %>
   <div class="row">
-    <%= file_field_tag :file, required: true, :class => "col-md-3", :style => "padding-top:7px;" %>
-    <%= submit_tag "import", :class => "btn btn-default btn-warning" %>
+    <%= file_field_tag :file, required: true, :class => "col-md-2", :style => "padding-top:7px;" %>
+    <%= submit_tag "import", :class => "btn btn-default btn-info" %>
   </div>
 <% end -%>
 
 <br/><br/>
 
-<table class="table table-hover">
-  <tr>
-    <th>URL</th>
-    <!--th>Business name</th>
-    <th>Business address</th-->
-  </tr>
-  <% @urls.each do |url| %>
-  <tr>
-    <td><%= link_to url.url, url.url, target: "_blank" %></td>
-  </tr>
-  <% end %>
-</table>
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#to_be_sent" aria-controls="to_be_sent" role="tab" data-toggle="tab">Enquiries to be sent</a></li>
+    <li role="presentation"><a href="#sent" aria-controls="sent" role="tab" data-toggle="tab">Enquiries sent</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="to_be_sent">
+      <table class="table table-hover">
+        <tr>
+          <th style="border:none;">URLs</th>
+        </tr>
+        <% @unsent_urls.each do |url| %>
+        <tr>
+          <td><%= link_to url.url, url.url, target: "_blank" %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="sent">
+      <table class="table table-hover">
+        <tr>
+          <th style="border:none;">URLs</th>
+        </tr>
+        <% @sent_urls.each do |url| %>
+        <tr>
+          <td><%= link_to url.url, url.url, target: "_blank" %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+</div>

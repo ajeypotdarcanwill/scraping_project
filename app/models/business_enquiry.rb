@@ -13,7 +13,7 @@ class BusinessEnquiry < ActiveRecord::Base
 	# +result+:: an email will be send to the business owner if the email link is present on the url which is being hit.
 
 	def self.send_business_enquiry
-		BusinessUrl.all.each do |business_url|
+		BusinessUrl.where(enquiry_sent: false).each do |business_url|
 			send_enquiry(business_url.url)
 		end
 	end
@@ -59,6 +59,12 @@ class BusinessEnquiry < ActiveRecord::Base
 
 			#creating a database entry for BusinessEnquiry.
 			BusinessEnquiry.create(unique_id: unique_identifier, business_name: business_name, business_address: business_address)
+			
+			#Updating the business url database entry as sent
+      if url = BusinessUrl.where(url: business_url).first
+        url.update_attributes(enquiry_sent: true)
+      end
+			
 			Rails.logger.info "-------- Business Enquiry email sent successfully. -------"
 			Rails.logger.info ""
 			return "success"
