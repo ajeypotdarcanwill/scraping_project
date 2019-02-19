@@ -7,8 +7,6 @@ App requirements:
 * twitter-bootstrap for CSS to make the web pages look pretty.
 
 Preparing the app for first use:
-
-* git clone git@github.com:jay3126/scraping_project.git
 * cd scraping_project
 * bundle install
 * rake db:create
